@@ -1,0 +1,960 @@
+index<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الخطة التشغيلية - الابتدائية 83</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  margin:0;
+  background:#f7f5fb;
+  color:#202044;
+}
+
+header{
+  background:linear-gradient(135deg,#55258b,#20275f);
+  color:white;
+  padding:22px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header h1{
+  margin:0;
+  font-size:25px;
+}
+
+header p{
+  margin:7px 0 0;
+  opacity:.85;
+}
+
+.container{
+  padding:25px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:15px;
+}
+
+.card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 3px 12px #00000012;
+  text-align:center;
+}
+
+.card .number{
+  font-size:30px;
+  font-weight:bold;
+  color:#55258b;
+  margin-top:8px;
+}
+
+.card small{
+  color:#777;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin:25px 0;
+  flex-wrap:wrap;
+}
+
+button{
+  border:0;
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.primary{
+  background:#55258b;
+  color:white;
+}
+
+.yellow{
+  background:#f4c20d;
+  color:#202044;
+}
+
+.secondary{
+  background:#20275f;
+  color:white;
+}
+
+.danger{
+  background:#e85b67;
+  color:white;
+}
+
+.panel{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+  box-shadow:0 3px 12px #00000010;
+}
+
+.panel h2{
+  margin-top:0;
+  color:#55258b;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+label{
+  font-weight:bold;
+  font-size:13px;
+  display:block;
+  margin-bottom:6px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  outline:none;
+}
+
+textarea{
+  min-height:80px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+th{
+  background:#55258b;
+  color:white;
+  padding:12px;
+}
+
+td{
+  padding:11px;
+  border-bottom:1px solid #eee;
+  text-align:center;
+}
+
+.progress{
+  height:10px;
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress div{
+  height:100%;
+  background:#55258b;
+  border-radius:20px;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.complete{
+  background:#dff5e5;
+  color:#16833b;
+}
+
+.running{
+  background:#fff1c7;
+  color:#987000;
+}
+
+.late{
+  background:#ffe0e0;
+  color:#b32929;
+}
+
+.notstarted{
+  background:#eee;
+  color:#666;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+}
+
+.modal-box{
+  background:white;
+  width:min(900px,95%);
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+  border-radius:20px;
+}
+
+.modal-buttons{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+}
+
+.kpi{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.kpi-box{
+  padding:20px;
+  border-radius:15px;
+  background:#faf7ff;
+  text-align:center;
+}
+
+.kpi-box strong{
+  display:block;
+  font-size:25px;
+  color:#55258b;
+}
+
+.search{
+  margin-bottom:15px;
+}
+
+@media(max-width:1100px){
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+  .cards,.grid,.kpi{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <h1>لوحة مؤشرات الأداء والخطة التشغيلية</h1>
+    <p>الابتدائية 83 للطفولة المبكرة | رؤية السعودية 2030 والتحول الرقمي</p>
+  </div>
+
+  <div style="text-align:left">
+    <b>مديرة المدرسة</b><br>
+    أستاذة أمل عمر الزايدي<br><br>
+    <b>إعداد وتصميم</b><br>
+    أستاذة ريم الحارثي
+  </div>
+</header>
+
+<div class="container">
+
+<!-- الإحصائيات -->
+<div class="cards">
+
+<div class="card">
+  <small>إجمالي البرامج والمبادرات</small>
+  <div class="number" id="totalPrograms">0</div>
+</div>
+
+<div class="card">
+  <small>البرامج المكتملة</small>
+  <div class="number" id="completed">0</div>
+</div>
+
+<div class="card">
+  <small>قيد التنفيذ</small>
+  <div class="number" id="running">0</div>
+</div>
+
+<div class="card">
+  <small>البرامج المتأخرة</small>
+  <div class="number" id="late">0</div>
+</div>
+
+<div class="card">
+  <small>إجمالي الشواهد</small>
+  <div class="number" id="evidenceCount">0</div>
+</div>
+
+<div class="card">
+  <small>نسبة الإنجاز الكلية</small>
+  <div class="number" id="overall">0%</div>
+</div>
+
+</div>
+
+<!-- الأزرار -->
+<div class="actions">
+
+<button class="primary" onclick="openModal()">
++ إضافة برنامج / مبادرة
+</button>
+
+<button class="yellow" onclick="scrollToPrograms()">
+📋 البرامج والمبادرات
+</button>
+
+<button class="secondary" onclick="showKPIs()">
+🎯 مؤشرات الأداء
+</button>
+
+</div>
+
+<!-- ملخص الأداء -->
+<div class="panel">
+
+<h2>📊 ملخص الأداء</h2>
+
+<div class="kpi">
+
+<div class="kpi-box">
+<strong id="avgTarget">0%</strong>
+المستهدف العام
+</div>
+
+<div class="kpi-box">
+<strong id="avgActual">0%</strong>
+الإنجاز الفعلي
+</div>
+
+<div class="kpi-box">
+<strong id="evidenceTotal">0</strong>
+عدد الشواهد
+</div>
+
+<div class="kpi-box">
+<strong id="reportTotal">0</strong>
+عدد التقارير
+</div>
+
+</div>
+
+</div>
+
+<!-- البرامج -->
+<div class="panel" id="programPanel">
+
+<h2>📁 البرامج والمبادرات</h2>
+
+<input
+ class="search"
+ id="search"
+ placeholder="🔎 ابحثي باسم البرنامج أو المبادرة..."
+ oninput="render()"
+>
+
+<table>
+
+<thead>
+<tr>
+<th>البرنامج</th>
+<th>المحور</th>
+<th>المسؤول</th>
+<th>المستهدف</th>
+<th>الإنجاز</th>
+<th>النسبة</th>
+<th>الحالة</th>
+<th>الشواهد</th>
+<th>التقارير</th>
+<th>الإجراء</th>
+</tr>
+</thead>
+
+<tbody id="programsTable"></tbody>
+
+</table>
+
+</div>
+
+<!-- المحاور -->
+<div class="panel">
+
+<h2>📈 نسبة الإنجاز حسب المحاور</h2>
+
+<div id="axes"></div>
+
+</div>
+
+</div>
+
+<!-- النافذة -->
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<h2>➕ إضافة برنامج / مبادرة</h2>
+
+<div class="grid">
+
+<div>
+<label>اسم البرنامج / المبادرة</label>
+<input id="name">
+</div>
+
+<div>
+<label>المحور</label>
+<select id="axis">
+<option>التحول الرقمي</option>
+<option>طفل المستقبل</option>
+<option>تطوير أداء المعلمات</option>
+<option>الشراكة مع الأسرة والمجتمع</option>
+<option>جودة الأداء وقياس الأثر</option>
+</select>
+</div>
+
+<div>
+<label>المسؤول عن التنفيذ</label>
+<input id="responsible">
+</div>
+
+<div>
+<label>الهدف الاستراتيجي</label>
+<input id="strategic">
+</div>
+
+<div>
+<label>الهدف التشغيلي</label>
+<input id="operational">
+</div>
+
+<div>
+<label>اسم مؤشر الأداء</label>
+<input id="indicator">
+</div>
+
+<div>
+<label>خط الأساس</label>
+<input id="baseline" type="number" value="0">
+</div>
+
+<div>
+<label>المستهدف</label>
+<input id="target" type="number" min="1">
+</div>
+
+<div>
+<label>الإنجاز الفعلي</label>
+<input id="actual" type="number" min="0">
+</div>
+
+<div>
+<label>تاريخ البداية</label>
+<input id="start" type="date">
+</div>
+
+<div>
+<label>تاريخ النهاية</label>
+<input id="end" type="date">
+</div>
+
+<div>
+<label>حالة التنفيذ</label>
+<select id="status">
+<option>لم يبدأ</option>
+<option>قيد التنفيذ</option>
+<option>مكتمل</option>
+<option>متأخر</option>
+</select>
+</div>
+
+<div>
+<label>رابط البرنامج</label>
+<input id="programLink" type="url" placeholder="https://">
+</div>
+
+<div>
+<label>رابط التقرير</label>
+<input id="reportLink" type="url" placeholder="https://">
+</div>
+
+<div>
+<label>رابط الشاهد</label>
+<input id="evidenceLink" type="url" placeholder="https://">
+</div>
+
+<div>
+<label>اسم الشاهد</label>
+<input id="evidenceName" placeholder="مثال: صور تنفيذ البرنامج">
+</div>
+
+<div>
+<label>عدد الشواهد</label>
+<input id="evidence" type="number" min="0" value="0">
+</div>
+
+<div>
+<label>عدد التقارير</label>
+<input id="reports" type="number" min="0" value="0">
+</div>
+
+</div>
+
+<br>
+
+<label>وصف البرنامج والملاحظات</label>
+<textarea id="notes"></textarea>
+
+<div class="modal-buttons">
+
+<button class="primary" onclick="saveProgram()">
+حفظ البرنامج
+</button>
+
+<button class="danger" onclick="closeModal()">
+إلغاء
+</button>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+let programs =
+JSON.parse(localStorage.getItem("schoolPrograms")) || [];
+
+
+/* فتح النافذة */
+function openModal(){
+ document.getElementById("modal").style.display="flex";
+}
+
+
+/* إغلاق */
+function closeModal(){
+ document.getElementById("modal").style.display="none";
+}
+
+
+/* حفظ البرنامج */
+function saveProgram(){
+
+ const target =
+ Number(document.getElementById("target").value) || 0;
+
+ const actual =
+ Number(document.getElementById("actual").value) || 0;
+
+ if(!document.getElementById("name").value){
+   alert("اكتبي اسم البرنامج أو المبادرة");
+   return;
+ }
+
+ if(target<=0){
+   alert("أدخلي المستهدف");
+   return;
+ }
+
+ let percentage =
+ Math.min(100,(actual/target)*100);
+
+ const program = {
+
+  id:Date.now(),
+
+  name:document.getElementById("name").value,
+
+  axis:document.getElementById("axis").value,
+
+  responsible:document.getElementById("responsible").value,
+
+  strategic:document.getElementById("strategic").value,
+
+  operational:document.getElementById("operational").value,
+
+  indicator:document.getElementById("indicator").value,
+
+  baseline:Number(document.getElementById("baseline").value)||0,
+
+  target:target,
+
+  actual:actual,
+
+  percentage:percentage,
+
+  start:document.getElementById("start").value,
+
+  end:document.getElementById("end").value,
+
+  status:document.getElementById("status").value,
+
+  programLink:document.getElementById("programLink").value,
+
+  reportLink:document.getElementById("reportLink").value,
+
+  evidenceLink:document.getElementById("evidenceLink").value,
+
+  evidenceName:document.getElementById("evidenceName").value,
+
+  evidence:Number(document.getElementById("evidence").value)||0,
+
+  reports:Number(document.getElementById("reports").value)||0,
+
+  notes:document.getElementById("notes").value
+
+ };
+
+ programs.push(program);
+
+ localStorage.setItem(
+   "schoolPrograms",
+   JSON.stringify(programs)
+ );
+
+ clearForm();
+ closeModal();
+ render();
+}
+
+
+/* تنظيف النموذج */
+function clearForm(){
+
+ document.querySelectorAll(
+  "#modal input,#modal textarea"
+ ).forEach(x=>{
+   if(x.type!=="number") x.value="";
+ });
+
+ document.getElementById("baseline").value=0;
+ document.getElementById("evidence").value=0;
+ document.getElementById("reports").value=0;
+}
+
+
+/* عرض البيانات */
+function render(){
+
+ const table =
+ document.getElementById("programsTable");
+
+ const search =
+ document.getElementById("search").value.toLowerCase();
+
+ table.innerHTML="";
+
+ let filtered =
+ programs.filter(p =>
+ p.name.toLowerCase().includes(search)
+ );
+
+ filtered.forEach(p=>{
+
+   let cls="notstarted";
+
+   if(p.status==="مكتمل") cls="complete";
+   if(p.status==="قيد التنفيذ") cls="running";
+   if(p.status==="متأخر") cls="late";
+
+   table.innerHTML += `
+
+   <tr>
+
+   <td><b>${p.name}</b></td>
+
+   <td>${p.axis}</td>
+
+   <td>${p.responsible || "-"}</td>
+
+   <td>${p.target}</td>
+
+   <td>${p.actual}</td>
+
+   <td style="min-width:110px">
+
+     <b>${p.percentage.toFixed(0)}%</b>
+
+     <div class="progress">
+       <div style="width:${p.percentage}%"></div>
+     </div>
+
+   </td>
+
+   <td>
+     <span class="badge ${cls}">
+       ${p.status}
+     </span>
+   </td>
+
+   <td>
+     ${p.evidence}
+
+     ${
+       p.evidenceLink
+       ? `<br><a href="${p.evidenceLink}" target="_blank">
+          عرض الشاهد
+          </a>`
+       : ""
+     }
+   </td>
+
+   <td>
+     ${p.reports}
+
+     ${
+       p.reportLink
+       ? `<br><a href="${p.reportLink}" target="_blank">
+          التقرير
+          </a>`
+       : ""
+     }
+   </td>
+
+   <td>
+
+   ${
+    p.programLink
+    ? `<a href="${p.programLink}" target="_blank">
+       🔗
+       </a>`
+    : ""
+   }
+
+   <button onclick="viewProgram(${p.id})">
+   👁️
+   </button>
+
+   <button
+   class="danger"
+   onclick="deleteProgram(${p.id})">
+   حذف
+   </button>
+
+   </td>
+
+   </tr>
+   `;
+ });
+
+ updateStats();
+ updateAxes();
+}
+
+
+/* الإحصائيات */
+function updateStats(){
+
+ const total=programs.length;
+
+ const completed=
+ programs.filter(p=>p.status==="مكتمل").length;
+
+ const running=
+ programs.filter(p=>p.status==="قيد التنفيذ").length;
+
+ const late=
+ programs.filter(p=>p.status==="متأخر").length;
+
+ const evidence=
+ programs.reduce((s,p)=>s+p.evidence,0);
+
+ const reports=
+ programs.reduce((s,p)=>s+p.reports,0);
+
+ const overall=
+ total
+ ? programs.reduce((s,p)=>s+p.percentage,0)/total
+ : 0;
+
+ document.getElementById("totalPrograms").textContent=total;
+ document.getElementById("completed").textContent=completed;
+ document.getElementById("running").textContent=running;
+ document.getElementById("late").textContent=late;
+ document.getElementById("evidenceCount").textContent=evidence;
+ document.getElementById("overall").textContent=
+ overall.toFixed(0)+"%";
+
+ document.getElementById("avgTarget").textContent="100%";
+ document.getElementById("avgActual").textContent=
+ overall.toFixed(0)+"%";
+
+ document.getElementById("evidenceTotal").textContent=evidence;
+ document.getElementById("reportTotal").textContent=reports;
+}
+
+
+/* المحاور */
+function updateAxes(){
+
+ const axes=[
+ "التحول الرقمي",
+ "طفل المستقبل",
+ "تطوير أداء المعلمات",
+ "الشراكة مع الأسرة والمجتمع",
+ "جودة الأداء وقياس الأثر"
+ ];
+
+ let html="";
+
+ axes.forEach(axis=>{
+
+   const list=
+   programs.filter(p=>p.axis===axis);
+
+   const avg=
+   list.length
+   ? list.reduce((s,p)=>s+p.percentage,0)/list.length
+   : 0;
+
+   html += `
+
+   <div style="margin:18px 0">
+
+   <div style="
+   display:flex;
+   justify-content:space-between;
+   margin-bottom:7px">
+
+   <b>${axis}</b>
+
+   <b>${avg.toFixed(0)}%</b>
+
+   </div>
+
+   <div class="progress">
+   <div style="width:${avg}%"></div>
+   </div>
+
+   </div>
+
+   `;
+
+ });
+
+ document.getElementById("axes").innerHTML=html;
+}
+
+
+/* عرض التفاصيل */
+function viewProgram(id){
+
+ const p=programs.find(x=>x.id===id);
+
+ alert(
+
+ `اسم البرنامج:
+${p.name}
+
+المحور:
+${p.axis}
+
+الهدف:
+${p.operational}
+
+مؤشر الأداء:
+${p.indicator}
+
+المستهدف:
+${p.target}
+
+الإنجاز:
+${p.actual}
+
+نسبة الإنجاز:
+${p.percentage.toFixed(0)}%
+
+الحالة:
+${p.status}
+
+الشواهد:
+${p.evidence}
+
+التقارير:
+${p.reports}
+
+ملاحظات:
+${p.notes}`
+
+ );
+
+}
+
+
+/* حذف */
+function deleteProgram(id){
+
+ if(confirm("هل تريدين حذف البرنامج؟")){
+
+  programs=
+  programs.filter(p=>p.id!==id);
+
+  localStorage.setItem(
+   "schoolPrograms",
+   JSON.stringify(programs)
+  );
+
+  render();
+ }
+}
+
+
+/* الانتقال للبرامج */
+function scrollToPrograms(){
+
+ document.getElementById(
+   "programPanel"
+ ).scrollIntoView({
+   behavior:"smooth"
+ });
+
+}
+
+
+/* مؤشرات الأداء */
+function showKPIs(){
+
+ if(programs.length===0){
+
+   alert("لم تتم إضافة مؤشرات أو برامج بعد.");
+   return;
+
+ }
+
+ let text="مؤشرات الأداء:\n\n";
+
+ programs.forEach((p,i)=>{
+
+   text +=
+   `${i+1}. ${p.indicator || p.name}
+   — ${p.percentage.toFixed(0)}%\n`;
+
+ });
+
+ alert(text);
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
